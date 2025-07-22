@@ -123,13 +123,15 @@ h6 {
 #nav .nav-link:hover,
 #nav .nav-link.active {
     color: #ffffff;
+    transition: 1s;
 }
 
 #nav .nav-link:hover,
 #nav .nav-link.active {
     color: #4F84C4;
-    background: #ffffff;
+    background: #453c3c87;
     transition: none;
+    border-radius: 20px;
 }
 
 #nav .dropdown-menu {
