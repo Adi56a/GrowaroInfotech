@@ -21,6 +21,88 @@
 
         <!-- Main Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
+        
+        <!-- Custom Payment Styles -->
+        <style>
+            .amount-input-section {
+                background: #f8f9fa;
+                padding: 20px;
+                border-radius: 10px;
+                margin: 15px 0;
+                border: 2px solid #e9ecef;
+                transition: all 0.3s ease;
+            }
+            .amount-input-section:focus-within {
+                border-color: #007bff;
+                box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            }
+            .amount-input {
+                font-size: 1.2rem;
+                font-weight: bold;
+                padding: 12px;
+                border: 2px solid #dee2e6;
+                border-radius: 8px;
+                text-align: center;
+            }
+            .amount-input:focus {
+                border-color: #007bff;
+                box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            }
+            .custom-amount-label {
+                font-weight: 600;
+                color: #495057;
+                margin-bottom: 10px;
+            }
+            .payment-modal {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+            }
+            .modal-content {
+                background: white;
+                padding: 30px;
+                border-radius: 12px;
+                max-width: 450px;
+                width: 90%;
+                text-align: center;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            }
+            .modal-icon {
+                font-size: 4rem;
+                margin-bottom: 20px;
+            }
+            .modal-btn {
+                margin-top: 20px;
+                padding: 12px 24px;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+                font-weight: 600;
+                font-size: 1rem;
+            }
+            .btn-success {
+                background: #28a745;
+                color: white;
+            }
+            .btn-danger {
+                background: #dc3545;
+                color: white;
+            }
+            .payment-details {
+                background: #f8f9fa;
+                padding: 15px;
+                border-radius: 8px;
+                margin: 15px 0;
+                text-align: left;
+            }
+        </style>
     </head>
 
     <body>
@@ -58,77 +140,144 @@
         <!-- Nav End -->
         
         <!--Pricing start-->
-      <div class="pricing mt-100">
-    <div class="container">
-        <div class="section-header">
-            <h2>Our Pricing</h2>
-            <p>
-                At Growaro Infotech Pvt Ltd, we offer flexible and transparent pricing tailored to your needs. Whether you're a startup, growing business, or established enterprise, our plans are designed to help you scale and succeed with top-notch software solutions.
-            </p>
+        <div class="pricing mt-100">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Our Pricing</h2>
+                    <p>
+                        At Growaro Infotech Pvt Ltd, we offer flexible and transparent pricing tailored to your needs. Whether you're a startup, growing business, or established enterprise, our plans are designed to help you scale and succeed with top-notch software solutions.
+                    </p>
+                </div>
+                <div class="row">
+                    <!-- Silver Plan -->
+                    <div class="col-md-4">
+                        <div class="price-content">
+                            <div class="price-plan">
+                                <i class="ion-md-home"></i>
+                                <p class="price-title">Silver</p>
+                                <h2 class="price-amount"><span>₹</span>6,999<span> / m</span></h2>
+                            </div>
+                            <ul class="price-details">
+                                <li><i class="ion-md-checkmark"></i><strong>React.js</strong> (Frontend)</li>
+                                <li><i class="ion-md-checkmark"></i><strong>Node.js</strong> (Backend)</li>
+                                <li><i class="ion-md-checkmark"></i><strong>Express.js</strong> for API management</li>
+                                <li><i class="ion-md-checkmark"></i><strong>MongoDB</strong> for database</li>
+                                <li><i class="ion-md-close"></i><strong>No real-time features</strong></li>
+                                <li><i class="ion-md-close"></i><strong>Basic Authentication</strong> (JWT)</li>
+                            </ul>
+                            
+                            <!-- Custom Amount Input for Silver -->
+                            <div class="amount-input-section">
+                                <label class="custom-amount-label">Enter Amount (₹):</label>
+                                <input 
+                                    type="number" 
+                                    id="silver-amount-input"
+                                    class="form-control amount-input"
+                                    placeholder="6999"
+                                    value="6999"
+                                    min="1"
+                                    max="999999"
+                                >
+                            </div>
+                            
+                            <button 
+                                id="silver-plan-btn"
+                                class="btn mian-btn price-btn"
+                                onclick="initiateCustomPayment('silver')"
+                            >
+                                Buy Now
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Gold Plan -->
+                    <div class="col-md-4">
+                        <div class="price-content features-price">
+                            <div class="price-plan">
+                                <i class="ion-md-star"></i>
+                                <p class="price-title">Gold</p>
+                                <h2 class="price-amount"><span>₹</span>9,999<span> / m</span></h2>
+                            </div>
+                            <ul class="price-details">
+                                <li><i class="ion-md-checkmark"></i><strong>React.js</strong> (Frontend)</li>
+                                <li><i class="ion-md-checkmark"></i><strong>Node.js</strong> (Backend)</li>
+                                <li><i class="ion-md-checkmark"></i><strong>Express.js</strong> for advanced API management</li>
+                                <li><i class="ion-md-checkmark"></i><strong>MongoDB</strong> + <strong>Redis</strong> for optimized storage</li>
+                                <li><i class="ion-md-checkmark"></i><strong>OAuth 2.0</strong> Authentication</li>
+                                <li><i class="ion-md-close"></i><strong>Real-time features</strong> with Socket.io</li>
+                            </ul>
+                            
+                            <!-- Custom Amount Input for Gold -->
+                            <div class="amount-input-section">
+                                <label class="custom-amount-label">Enter Amount (₹):</label>
+                                <input 
+                                    type="number" 
+                                    id="gold-amount-input"
+                                    class="form-control amount-input"
+                                    placeholder="9999"
+                                    value="9999"
+                                    min="1"
+                                    max="999999"
+                                >
+                            </div>
+                            
+                            <button 
+                                id="gold-plan-btn"
+                                class="btn mian-btn price-btn features-price-btn"
+                                onclick="initiateCustomPayment('gold')"
+                            >
+                                Buy Now
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Platinum Plan -->
+                    <div class="col-md-4">
+                        <div class="price-content">
+                            <div class="price-plan">
+                                <i class="ion-md-gift"></i>
+                                <p class="price-title">Platinum</p>
+                                <h2 class="price-amount"><span>₹</span>15,999<span> / m</span></h2>
+                            </div>
+                            <ul class="price-details">
+                                <li><i class="ion-md-checkmark"></i><strong>React.js</strong> (Frontend)</li>
+                                <li><i class="ion-md-checkmark"></i><strong>Node.js</strong> (Backend)</li>
+                                <li><i class="ion-md-checkmark"></i><strong>Express.js</strong> + <strong>GraphQL</strong> for API management</li>
+                                <li><i class="ion-md-checkmark"></i><strong>MongoDB</strong> + <strong>PostgreSQL</strong> for optimized and scalable database solutions</li>
+                                <li><i class="ion-md-checkmark"></i><strong>OAuth 2.0</strong> + <strong>JWT</strong> Authentication</li>
+                                <li><i class="ion-md-checkmark"></i><strong>Real-time Communication</strong> with WebSockets</li>
+                            </ul>
+                            
+                            <!-- Custom Amount Input for Platinum -->
+                            <div class="amount-input-section">
+                                <label class="custom-amount-label">Enter Amount (₹):</label>
+                                <input 
+                                    type="number" 
+                                    id="platinum-amount-input"
+                                    class="form-control amount-input"
+                                    placeholder="15999"
+                                    value="15999"
+                                    min="1"
+                                    max="999999"
+                                >
+                            </div>
+                            
+                            <button 
+                                id="platinum-plan-btn"
+                                class="btn mian-btn price-btn"
+                                onclick="initiateCustomPayment('platinum')"
+                            >
+                                Buy Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="price-content">
-                    <div class="price-plan">
-                        <i class="ion-md-home"></i>
-                        <p class="price-title">Silver</p>
-                        <h2 class="price-amount"><span>₹</span>6,999<span> / m</span></h2>
-                    </div>
-                    <ul class="price-details">
-                        <li><i class="ion-md-checkmark"></i><strong>React.js</strong> (Frontend)</li>
-                        <li><i class="ion-md-checkmark"></i><strong>Node.js</strong> (Backend)</li>
-                        <li><i class="ion-md-checkmark"></i><strong>Express.js</strong> for API management</li>
-                        <li><i class="ion-md-checkmark"></i><strong>MongoDB</strong> for database</li>
-                        <li><i class="ion-md-close"></i><strong>No real-time features</strong></li>
-                        <li><i class="ion-md-close"></i><strong>Basic Authentication</strong> (JWT)</li>
-                    </ul>
-                    <a href="#" class="btn mian-btn price-btn">Buy Now</a>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="price-content features-price">
-                    <div class="price-plan">
-                        <i class="ion-md-star"></i>
-                        <p class="price-title">Gold</p>
-                        <h2 class="price-amount"><span>₹</span>9,999<span> / m</span></h2>
-                    </div>
-                    <ul class="price-details">
-                        <li><i class="ion-md-checkmark"></i><strong>React.js</strong> (Frontend)</li>
-                        <li><i class="ion-md-checkmark"></i><strong>Node.js</strong> (Backend)</li>
-                        <li><i class="ion-md-checkmark"></i><strong>Express.js</strong> for advanced API management</li>
-                        <li><i class="ion-md-checkmark"></i><strong>MongoDB</strong> + <strong>Redis</strong> for optimized storage</li>
-                        <li><i class="ion-md-checkmark"></i><strong>OAuth 2.0</strong> Authentication</li>
-                        <li><i class="ion-md-close"></i><strong>Real-time features</strong> with Socket.io</li>
-                    </ul>
-                    <a href="#" class="btn mian-btn price-btn features-price-btn">Buy Now</a>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="price-content">
-                    <div class="price-plan">
-                        <i class="ion-md-gift"></i>
-                        <p class="price-title">Platinum</p>
-                        <h2 class="price-amount"><span>₹</span>15,999<span> / m</span></h2>
-                    </div>
-                    <ul class="price-details">
-                        <li><i class="ion-md-checkmark"></i><strong>React.js</strong> (Frontend)</li>
-                        <li><i class="ion-md-checkmark"></i><strong>Node.js</strong> (Backend)</li>
-                        <li><i class="ion-md-checkmark"></i><strong>Express.js</strong> + <strong>GraphQL</strong> for API management</li>
-                        <li><i class="ion-md-checkmark"></i><strong>MongoDB</strong> + <strong>PostgreSQL</strong> for optimized and scalable database solutions</li>
-                        <li><i class="ion-md-checkmark"></i><strong>OAuth 2.0</strong> + <strong>JWT</strong> Authentication</li>
-                        <li><i class="ion-md-checkmark"></i><strong>Real-time Communication</strong> with WebSockets</li>
-                    </ul>
-                    <a href="#" class="btn mian-btn price-btn">Buy Now</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
         <!--Pricing End-->
 
         <!-- Footer Start -->
-       <div class="footer">
+        <div class="footer">
             <div class="footer-top">
                 <div class="container">
                     <div class="row flex justify-content-around">
@@ -143,24 +292,11 @@
                             </ul>
                         </div>
 
-                        <!-- <div class="col-lg-3 col-md-6 footer-links">
-                            <h4>Useful Links</h4>
-                            <ul>
-                                <li><i class="ion-ios-arrow-forward"></i> <a href="#">Lorem ipsum</a></li>
-                                <li><i class="ion-ios-arrow-forward"></i> <a href="#">Pellentesque</a></li>
-                                <li><i class="ion-ios-arrow-forward"></i> <a href="#">Suspendisse egestas</a></li>
-                                <li><i class="ion-ios-arrow-forward"></i> <a href="#">Nulla tristique</a></li>
-                                <li><i class="ion-ios-arrow-forward"></i> <a href="#">Phasellus leo</a></li>
-                            </ul>
-                        </div> -->
-
                         <div class="col-lg-3 col-md-6 footer-contact">
                             <h4>Contact Us</h4>
                             <p>
                                 Shrigond , Ahiliya Nagar<br>
-                               
                                 Maharashtra <br>
-                               
                                 <strong>Email:</strong>growaroinfotech@gmail.com<br>
                             </p>
 
@@ -171,17 +307,15 @@
                                 <a href="#"><i class="ion-logo-instagram"></i></a>
                                 <a href="#"><i class="ion-logo-googleplus"></i></a>
                             </div>
-
                         </div>
 
                         <div class="col-lg-3 col-md-6 footer-newsletter">
                             <h4>Subscription</h4>
                             <p>Looking for a Demo? Request a Free Trial Today!</p>
-                            <form >
-                                <input type="email" name="email"><input type="submit"  value="Subscribe">
+                            <form>
+                                <input type="email" name="email"><input type="submit" value="Subscribe">
                             </form>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -192,7 +326,6 @@
                         Copyright &copy; 2025 <a href="">Growaro Infotech Pvt.Ltd</a>. All Rights Reserved
                     </div>
                     <div class="col-md-6 credit">
-						<!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
                         Designed by >Delta
                     </div>
                 </div>
@@ -215,5 +348,10 @@
         <!-- Main Javascript -->
         <script src="js/main.js"></script>
 
+        <!-- 🔑 Razorpay Checkout Library -->
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+        
+        <!-- 💳 Custom Payment Integration Script -->
+        <script src="js/payment.js"></script>
     </body>
 </html>
